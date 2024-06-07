@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+       <div class="container">
+        <h1 class="heading">Rock Paper Scissors</h1>
+        <img src="rock.jpg" class="option" id="Rock">
+        <img src="paper.jpg" class="option" id="Paper">
+        <img src="scissors.jpg" class="option" id="Scissors"><br>
+        <div class="you">
+            <span class="Uservalue">0</span>
+            <p>You</p>
+        </div>
+        <div class="Computer">
+            <span class="Computervalue">0</span>
+            <p>Computer</p>
+        </div><br>
+        <div class="info">Pick your move</div>
+       </div> 
+       <style>
+        .heading{
+            color: white;
+            font-weight: bold;
+            background-color: black;
+            margin-top: 0;
+            text-align: center;
+            border-radius: 7px;
+            height: 45px;
+            padding-top: 10px;
+        }
+        .option{
+            margin-left: 50px;
+            cursor: pointer;
+            border-radius: 50%;
+            margin-top: 20px;
+        }
+        .option:hover{
+            border: 4px solid black;
+        }
+        #Rock{
+            margin-left: 360px;
+        }
+        .you{
+            padding-left: 550px;
+        }
+        .you, .Computer{
+            display: inline-block;
+            margin-left: 20px;
+            margin-top: 60px;
+            font-size: 24px;
+            font-weight: bolder;
+        }
+        .Uservalue, .Computervalue{
+            margin-left: 15px;
+        }
+        .info{
+            background-color: black;
+            color: white;
+            font-weight: bold;
+            display: inline-block;
+            padding-left: 20px;
+            padding-right: 20px;
+            border-radius: 7px;
+            font-size: 20px;
+            margin-top: 20px;
+            margin-left: 560px;
+            height: 30px;
+            padding-top: 10px;
+        }
+       </style>
+       <script>
+        let colorChange=document.querySelector(".info");
+        const FindComputerChoice=()=>{
+            let arr=['Rock','Paper','Scissors'];
+            let num=Math.floor((Math.random()*3));
+            return arr[num];
+        }
+        const userPoint=()=>{
+            let Uservalue=document.querySelector(".Uservalue"); //User Point
+            let n=Number(Uservalue.innerText);
+            Uservalue.innerText=n+1;
+            colorChange.style.backgroundColor = "green";
+        }
+
+        const computerPoint=()=>{   //Computer point
+            let Computervalue=document.querySelector(".Computervalue"); 
+            let n1=Number(Computervalue.innerText);
+            Computervalue.innerText=n1+1;
+            colorChange.style.backgroundColor = "Red";
+        }
+
+        let option=document.querySelectorAll(".option");
+        option.forEach((choice)=>{
+            choice.addEventListener("click",()=>{
+                let computerChoice=FindComputerChoice();    //pickip option
+                let userChoice=choice.getAttribute("id");
+                if(userChoice=='Rock' && computerChoice=='Scissors'){
+                    userPoint();
+                    document.querySelector(".info").innerText="You win. Rock beats Scissors.";
+                }
+                else if(userChoice=='Rock' && computerChoice=='Paper'){
+                    computerPoint();
+                    document.querySelector(".info").innerText="You lost. Paper beats Rock.";
+                }
+                else if(userChoice=='Paper' && computerChoice=='Scissors'){
+                    computerPoint();
+                    document.querySelector(".info").innerText="You lost. Scissors beats Paper.";
+                }
+                else if(userChoice=='Paper' && computerChoice=='Rock'){
+                    userPoint();
+                    document.querySelector(".info").innerText="You win. Paper beats Rock.";
+                }
+                else if(userChoice=='Scissors' && computerChoice=='Rock'){
+                    computerPoint();
+                    document.querySelector(".info").innerText="You lost. Rock beats Scissors.";
+                }
+                else if(userChoice=='Scissors' && computerChoice=='Paper'){
+                    userPoint();
+                    document.querySelector(".info").innerText="You win. Scissors beats Paper.";
+                }
+                else if(userChoice==computerChoice){
+                    document.querySelector(".info").innerText="It was Draw.";
+                    colorChange.style.backgroundColor = "orange";
+                }
+            })
+        })
+        
+       </script>
+</body>
+</html>
